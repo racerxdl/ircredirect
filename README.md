@@ -33,3 +33,17 @@ docker run \
   -e mqtt_topic="ircredirect" \
   racerxdl/ircredirect
 ```
+
+
+MQTT to IRC Messages
+====================
+
+Aditionally, this redirect works in the other way, redirecting messages from MQTT to IRC. It does that by listen on a `YOURTOPIC_msg` MQTT Topic. For example of `mqtt_topic` is __mymessages__, it will listen for inputs in __mymessages_msg__. You can send a JSON String payload with the following content:
+
+```json
+{
+  "sendmsg": true,
+  "to": "nickname or channel",
+  "message": "message to send"
+}
+```

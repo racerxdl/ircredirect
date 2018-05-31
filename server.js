@@ -171,6 +171,7 @@ mqttClient  = mqtt.connect(mqttServer)
 
 mqttClient.on('connect', () => {
   MQTTLog.start('Connected');
+  mqttClient.subscribe(mqttTopic + "_msg");
   mqttClient.publish(mqttTopic, JSON.stringify({
     "type": "bot_enter"
   }));
@@ -179,10 +180,13 @@ mqttClient.on('connect', () => {
 mqttClient.on('message', (topic, message) => {
   // message is Buffer
   try {
-    const data = JSON.parse(message.toString());
-    if (data.hasOwnProperty("sendmsg") && data.hasOwnProperty("message")) {
-      const to = data.hasOwnProperty("to") ? data["to"] : ircChannel;
-      ircc.say(to, data["message"]);
+    if (topic === mqttTopic + "_msg") {
+      const data = JSON.parse(message.toString());
+      if (data.hasOwnProperty("sendmsg") && data.hasOwnProperty("message")) {
+        const to = data.hasOwnProperty("to") ? data["to"] : ircChannel;
+        MQTTLog.info(`${to.warn.bold}: ${data["message"]}`);
+        ircc.say(to, data["message"]);
+      }
     }
   } catch(e) {
     MQTTLog.error(`Invalid message: ${message.toString()}`);
