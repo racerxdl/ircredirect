@@ -103,7 +103,7 @@ ircc.addListener('nick', (oldnick, newnick, channels, message) => {
     type: "message",
     from: "SERVER",
     to: ircChannel,
-    message: msg,
+    message: msg.replace(/\x1B\[\d+m/g, ''),
   }));
 });
 
@@ -114,7 +114,7 @@ ircc.addListener('quit', (channel, nick, reason, message) => {
     type: "message",
     from: "SERVER",
     to: ircChannel,
-    message: msg,
+    message: msg.replace(/\x1B\[\d+m/g, ''),
   }));
 });
 
@@ -125,7 +125,7 @@ ircc.addListener('part', (channel, nick, reason, message) => {
     type: "message",
     from: "SERVER",
     to: ircChannel,
-    message: msg,
+    message: msg.replace(/\x1B\[\d+m/g, ''),
   }));
 });
 ircc.addListener('join', (channel, nick, message) => {
@@ -135,7 +135,7 @@ ircc.addListener('join', (channel, nick, message) => {
     type: "message",
     from: "SERVER",
     to: ircChannel,
-    message: msg,
+    message: msg.replace(/\x1B\[\d+m/g, ''),
   }));
 });
 
