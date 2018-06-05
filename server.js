@@ -110,33 +110,33 @@ ircc.addListener('nick', (oldnick, newnick, channels, message) => {
 ircc.addListener('quit', (channel, nick, reason, message) => {
   const msg = `User ${nick.warn.bold} has exited ${ircChannel.warn.bold}: ${reason || 'Goodbye'}`;
   IrcLog.pause(msg);
-  mqttClient.publish(mqttTopic, JSON.stringify({
+  /*mqttClient.publish(mqttTopic, JSON.stringify({
     type: "message",
     from: "SERVER",
     to: ircChannel,
     message: msg.replace(/\x1B\[\d+m/g, ''),
-  }));
+  }));*/
 });
 
 ircc.addListener('part', (channel, nick, reason, message) => {
   const msg = `User ${nick.warn.bold} has exited ${channel.warn.bold}: ${reason || 'Goodbye'}`;
   IrcLog.pause(msg);
-  mqttClient.publish(mqttTopic, JSON.stringify({
+  /*mqttClient.publish(mqttTopic, JSON.stringify({
     type: "message",
     from: "SERVER",
     to: ircChannel,
     message: msg.replace(/\x1B\[\d+m/g, ''),
-  }));
+  }));*/
 });
 ircc.addListener('join', (channel, nick, message) => {
   const msg = `User ${nick.warn.bold} has join ${channel.warn.bold}`;
   IrcLog.pause(msg);
-  mqttClient.publish(mqttTopic, JSON.stringify({
+  /*mqttClient.publish(mqttTopic, JSON.stringify({
     type: "message",
     from: "SERVER",
     to: ircChannel,
     message: msg.replace(/\x1B\[\d+m/g, ''),
-  }));
+  }));*/
 });
 
 ircc.addListener('registered', function(message) {
